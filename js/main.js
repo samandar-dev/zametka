@@ -1,5 +1,5 @@
-const Input = document.querySelector('input[type="text"]');
 const Form = document.querySelector('#form');
+const Input = document.querySelector('input[type="text"]');
 const elList = document.querySelector('#list');
 const elBtnAll = document.querySelector('#all');
 const elBtnComp = document.querySelector('#complete');
@@ -19,7 +19,7 @@ function addItems(e) {
   let noInput = document.createElement('p')
   let coment = "Empty input ?"
 
-  li.className = "tudu__item anim_item pb-4 d-flex align-items-center justify-content-between";
+  li.className = "tudu__item anim_item pb-4 d-flex justify-content-between";
 
   p.className = "tudu__item_tit";
   p.appendChild(document.createTextNode(InputValue));
@@ -34,24 +34,25 @@ function addItems(e) {
     noInput.remove();
   })
 
+
   if (InputValue == "" || InputValue == " " || InputValue == "  ") {
     Form.appendChild(noInput);
-  }
-  else {
+  } else {
     btn.appendChild(i)
     li.appendChild(p);
     li.appendChild(btn);
     elList.appendChild(li);
   }
 
-
   Input.value = "";
+
 
   let Ctit = false;
   let remov = true;
-  let Completee = false;
-  let Incompletee = false;
+  let Completee = true;
+  let InComp = true
   let alll = false;
+
 
   p.addEventListener('click', () => {
     remov = false
@@ -62,18 +63,24 @@ function addItems(e) {
       i.classList.remove("bx-x")
       i.classList.add("bx-check")
 
-      Completee = true
+      Completee = false
+      InComp = false
       Ctit = true
       alll = true
-    } else {
+    }
+    else {
       p.classList.remove("tit")
       btn.classList.remove("t_btn")
       i.classList.remove("bx-check")
       i.classList.add("bx-x")
 
+      Completee = true
+      InComp = true
       Ctit = false
+      alll = false
     }
   })
+
 
   btn.addEventListener('click', () => {
     if (remov == true) {
@@ -84,7 +91,18 @@ function addItems(e) {
       i.classList.remove("bx-check")
       i.classList.add("bx-x")
 
+      Completee = true
+      InComp = true
       remov = true
+    }
+  })
+
+
+  elBtnAll.addEventListener('click', () => {
+    if (alll == false) {
+      li.classList.remove('complete')
+    } else {
+      li.classList.remove('complete')
     }
   })
 
@@ -93,26 +111,18 @@ function addItems(e) {
     if (Completee == true) {
       li.classList.add('complete')
     }
-    alll = true
+    if (InComp == false) {
+      li.classList.remove('complete')
+    }
   })
+
 
   elBtnInCom.addEventListener('click', () => {
-    if (Incompletee == false) {
-      li.classList.add('in-comp')
+    if (InComp == false) {
+      li.classList.add('complete')
     }
-    alll = true
-  })
-
-  elBtnAll.addEventListener('click', () => {
-    if (alll == true) {
-      li.classList.add('all')
+    if (Completee == true) {
+      li.classList.remove('complete')
     }
   })
-
-
-
 }
-
-
-
-

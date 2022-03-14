@@ -1,11 +1,13 @@
 const Form = document.querySelector('#form');
-const Input = document.querySelector('input[type="text"]');
+const Input = document.querySelector('#tudu__input');
 const elList = document.querySelector('#list');
 const elBtnAll = document.querySelector('#all');
 const elBtnComp = document.querySelector('#complete');
 const elBtnInCom = document.querySelector('#incomplete');
+const elSearch = document.querySelector('#search')
 
 Form.addEventListener('submit', addItems);
+elSearch.addEventListener('keyup', fillters)
 
 function addItems(e) {
   e.preventDefault();
@@ -125,4 +127,21 @@ function addItems(e) {
       li.classList.remove('complete')
     }
   })
+
 }
+
+
+function fillters(e) {
+  let text = e.target.value.toLowerCase();
+  let items = elList.getElementsByTagName('li');
+
+  for (let i = 0; i < Array.from(items).length; i++) {
+    let itemName = items[i].firstElementChild.textContent;
+    if (itemName.toLowerCase().indexOf(text) != -1) {
+      items[i].classList = "tudu__item anim_item pb-4 d-flex justify-content-between"
+    } else {
+      items[i].classList = "tudu__item anim_item pb-4 d-none justify-content-between"
+    }
+  }
+}
+
